@@ -1,4 +1,6 @@
 bazel-*
+clang.bazelrc
+user.bazelrc
 .idea
 owasp-modsecurity*
 .project

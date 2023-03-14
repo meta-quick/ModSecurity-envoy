@@ -11,7 +11,7 @@ if [[ -f "${HOME:-/root}/.gitconfig" ]]; then
 fi
 
 function do_build () {
-    bazel build -c opt --verbose_failures=true //:envoy
+    bazel build --verbose_failures=true //:envoy
 }
 
 function do_test() {
