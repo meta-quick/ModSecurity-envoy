@@ -6,16 +6,11 @@ load(
     "envoy_cc_library",
     "envoy_cc_test",
 )
+load("@envoy_api//bazel:api_build_system.bzl", "api_proto_package")
 
-load("@envoy_api//bazel:api_build_system.bzl", "api_proto_library")
+package(default_visibility = ["//visibility:public"])
 
-api_proto_library(
-    name = "http_filter_proto",
-    srcs = ["http_filter.proto"],
-    deps = [
-        # TODO - "@envoy_api//envoy/api/v2/core:http_uri" (bad visibility)
-    ]
-)
+api_proto_package()
 
 envoy_cc_library(
     name = "http_filter_lib",
@@ -26,6 +21,7 @@ envoy_cc_library(
     deps = [
         ":http_filter_proto_cc",
         "//:libmodsecurity",
+	":pkg_cc_proto",
         "@envoy//source/exe:envoy_common_lib",
     ],
 )
