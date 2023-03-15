@@ -1,5 +1,3 @@
-package(default_visibility = ["//visibility:public"])
-
 load(
     "@envoy//bazel:envoy_build_system.bzl",
     "envoy_cc_binary",
@@ -10,6 +8,15 @@ load("@envoy_api//bazel:api_build_system.bzl", "api_proto_package")
 
 package(default_visibility = ["//visibility:public"])
 
+envoy_cc_binary(
+    name = "envoy",
+    repository = "@envoy",
+    deps = [
+        ":http_filter_config",
+        "@envoy//source/exe:envoy_main_entry_lib",
+    ],
+)
+
 api_proto_package()
 
 envoy_cc_library(
@@ -19,8 +26,7 @@ envoy_cc_library(
     hdrs = glob(["utility.h", "http_filter.h", "webhook_fetcher.h", "well_known_names.h"]),
     repository = "@envoy",
     deps = [
-        ":http_filter_proto_cc",
-        "//:libmodsecurity",
+        ":libmodsecurity",
 	":pkg_cc_proto",
         "@envoy//source/exe:envoy_common_lib",
     ],
@@ -33,7 +39,7 @@ envoy_cc_library(
     repository = "@envoy",
     deps = [
         ":http_filter_lib",
-        "@envoy//include/envoy/server:filter_config_interface"
+        "@envoy//envoy/server:filter_config_interface",
     ],
 )
 
